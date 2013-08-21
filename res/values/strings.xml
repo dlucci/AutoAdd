@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AutoSend</string>
+    <string name="action_settings">Settings</string>
+    <string name="infoText">Hello and welcome to my app!  The purpose of this app is to allow you to easily 
+        exchange contact information with someone.  As soon as a number is added into your phone, a text message is sent to that number with a predetermined message.</string>
+
+</resources>
