@@ -2,6 +2,7 @@ package com.example.autosend;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,11 +22,19 @@ public class MainActivity extends Activity implements OnClickListener{
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        Log.d(TAG, "onCreate()");
+
         setContentView(R.layout.activity_main);
         
         editText = (EditText) findViewById(R.id.messageText);
         done = (Button) findViewById(R.id.done);
+        done.setOnClickListener(this);
+        
+        Intent i = new Intent(this, MainService.class);
+        startService(i);
     }
 
 
@@ -39,10 +48,9 @@ public class MainActivity extends Activity implements OnClickListener{
     @Override
     public void onClick(View target)
     {
-    	int id = target.getId();
-    	if(id == done.getId())
+    	if(target == done)
     	{
-    		String text = editText.toString();
+    		String text = editText.getText().toString();
     		Log.i(TAG, String.valueOf(text));
     	}
     }
