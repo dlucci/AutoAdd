@@ -1,5 +1,7 @@
 package com.example.autosend;
 
+import java.util.Date;
+
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.database.Cursor;
 import android.os.IBinder;
 import android.provider.Contacts.People;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.RawContacts;
 import android.util.Log;
 
@@ -46,16 +49,30 @@ public class MainService extends Service{
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
             
-            Cursor c = cr.query(RawContacts.CONTENT_URI,
-                    new String[]{RawContacts.DATA_SET},
-                    RawContacts.DIRTY + "=?",
-                    new String[]{String.valueOf(1)}, null);
+            Cursor c = cr.query(Phone.CONTENT_URI,
+                    new String[]{Phone.NUMBER, Phone.CONTACT_LAST_UPDATED_TIMESTAMP},
+                    //Phone.CONTACT_LAST_UPDATED_TIMESTAMP + "=?",
+                    //new String[]{String.valueOf(new Date().getTime())},
+                    null,
+                    null,
+                    null);
             Log.i(TAG, String.valueOf(c.getCount()));
-            while(c.moveToFirst())
+            if(c.moveToFirst())
+            {
+            	while(!c.isAfterLast())
+            	{
+            		String phoneNum = c.getString(c.getColumnIndex(Phone.NUMBER));
+            		String lastUpdate = c.getString(c.getColumnIndex(Phone.CONTACT_LAST_UPDATED_TIMESTAMP));
+            		Log.i(TAG, String.valueOf(phoneNum) + "     " + String.valueOf(lastUpdate) + "   " + String.valueOf(new Date().compareTo(new Date(Long.valueOf(lastUpdate)))));
+            		
+            		c.moveToNext();
+            	}
+            }
+            /*while(c.moveToFirst())
             {
             	String data = c.getString(c.getColumnIndex(RawContacts.DATA_SET));
-            	Log.i(TAG, String.valueOf(data));
-            }
+            	//Log.i(TAG, String.valueOf(data));
+            }*/
 
         }
 	}
