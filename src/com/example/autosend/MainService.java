@@ -63,7 +63,7 @@ public class MainService extends Service{
             	{
             		String phoneNum = c.getString(c.getColumnIndex(Phone.NUMBER));
             		String lastUpdate = c.getString(c.getColumnIndex(Phone.CONTACT_LAST_UPDATED_TIMESTAMP));
-            		Log.i(TAG, String.valueOf(phoneNum) + "     " + String.valueOf(lastUpdate) + "   " + String.valueOf(new Date().compareTo(new Date(Long.valueOf(lastUpdate)))));
+            		Log.i(TAG, String.valueOf(phoneNum) + "     " + String.valueOf(lastUpdate) + "   " + String.valueOf(new Date().getTime() - Long.valueOf(lastUpdate)));
             		
             		c.moveToNext();
             	}
