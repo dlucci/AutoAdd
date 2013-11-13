@@ -1,4 +1,4 @@
-package com.example.autosend;
+package com.dlucci.autosend;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package com.example.autosend;
+package com.dlucci.autosend;
 
 import java.util.Date;
 
